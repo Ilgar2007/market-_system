@@ -1,0 +1,1100 @@
+definitions:
+  handler.Response:
+    properties:
+      data: {}
+      description:
+        type: string
+      status:
+        type: integer
+    type: object
+  models.Branch:
+    properties:
+      addres:
+        type: string
+      branch_code:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      phone_number:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.CreateBranch:
+    properties:
+      addres:
+        type: string
+      branch_code:
+        type: string
+      name:
+        type: string
+      phone_number:
+        type: string
+    type: object
+  models.CreateProvider:
+    properties:
+      active:
+        type: boolean
+      name:
+        type: string
+      phone_number:
+        type: string
+    type: object
+  models.CreateSaleCenter:
+    properties:
+      branch:
+        type: string
+      name:
+        type: string
+    type: object
+  models.Employee:
+    properties:
+      branch:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      last_name:
+        type: string
+      login:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      phone_number:
+        type: string
+      sale_center:
+        type: string
+      updated_at:
+        type: string
+      user_type:
+        type: string
+    type: object
+  models.EmployeeGetListResponse:
+    properties:
+      count:
+        type: string
+      sale_centers:
+        items:
+          $ref: '#/definitions/models.Employee'
+        type: array
+    type: object
+  models.GetListBranchResponse:
+    properties:
+      branches:
+        items:
+          $ref: '#/definitions/models.Branch'
+        type: array
+      count:
+        type: integer
+    type: object
+  models.Provider:
+    properties:
+      active:
+        type: boolean
+      created_at:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      phone_number:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.ProviderGetListResponse:
+    properties:
+      count:
+        type: string
+      sale_centers:
+        items:
+          $ref: '#/definitions/models.Provider'
+        type: array
+    type: object
+  models.SaleCenter:
+    properties:
+      branch:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.SaleCenterGetListResponse:
+    properties:
+      count:
+        type: string
+      sale_centers:
+        items:
+          $ref: '#/definitions/models.SaleCenter'
+        type: array
+    type: object
+  models.UpdateBranch:
+    properties:
+      addres:
+        type: string
+      branch_code:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      phone_number:
+        type: string
+    type: object
+  models.UpdateEmployee:
+    properties:
+      branch:
+        type: string
+      id:
+        type: string
+      last_name:
+        type: string
+      login:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      phone_number:
+        type: string
+      sale_center:
+        type: string
+      user_type:
+        type: string
+    type: object
+  models.UpdateProvider:
+    properties:
+      active:
+        type: boolean
+      id:
+        type: string
+      name:
+        type: string
+      phone_number:
+        type: string
+    type: object
+  models.UpdateSaleCenter:
+    properties:
+      branch:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://demo.com/support
+  description: Create  Go REST API with JWT Authentication in Gin Framework
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: demo.com
+  title: Swagger JWT API
+  version: "1.0"
+paths:
+  /branch:
+    get:
+      consumes:
+      - application/json
+      description: Get List Branch
+      operationId: get_list_branch
+      parameters:
+      - description: limit
+        in: query
+        name: limit
+        type: number
+      - description: offset
+        in: query
+        name: offset
+        type: number
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: GetListBranchResponseBody
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.GetListBranchResponse'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Get List Branch
+      tags:
+      - Branch
+    post:
+      consumes:
+      - application/json
+      description: Create Branch
+      operationId: create_branch
+      parameters:
+      - description: CreateBranchRequestBody
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateBranch'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: BranchBody
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Branch'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Create Branch
+      tags:
+      - Branch
+  /branch/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete Branch
+      operationId: delete_branch
+      parameters:
+      - description: DeleteBranchPath
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Deleted Branch
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Delete Branch
+      tags:
+      - Branch
+    get:
+      consumes:
+      - application/json
+      description: Get By Id Branch
+      operationId: get_by_id_branch
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: BranchBody
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Branch'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Get By Id Branch
+      tags:
+      - Branch
+    put:
+      consumes:
+      - application/json
+      description: Update Branch
+      operationId: update_branch
+      parameters:
+      - description: BranchPrimaryKey_ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: UpdateBranchBody
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateBranch'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Updated Branch
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Update Branch
+      tags:
+      - Branch
+  /center:
+    get:
+      consumes:
+      - application/json
+      description: Get List Center
+      operationId: get_list_center
+      parameters:
+      - description: limit
+        in: query
+        name: limit
+        type: number
+      - description: offset
+        in: query
+        name: offset
+        type: number
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: GetListCenterResponseBody
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.SaleCenterGetListResponse'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Get List Center
+      tags:
+      - Center
+    post:
+      consumes:
+      - application/json
+      description: Create Center
+      operationId: create_center
+      parameters:
+      - description: CreateCenterRequestBody
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateSaleCenter'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: CenterBody
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.SaleCenter'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Create Center
+      tags:
+      - Center
+  /center/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete Center
+      operationId: delete_center
+      parameters:
+      - description: DeleteCenterPath
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Deleted Center
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Delete Center
+      tags:
+      - Center
+    get:
+      consumes:
+      - application/json
+      description: Get By Id Center
+      operationId: get_by_id_center
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: CenterBody
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.SaleCenter'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Get By Id Center
+      tags:
+      - Center
+    put:
+      consumes:
+      - application/json
+      description: Update Center
+      operationId: update_center
+      parameters:
+      - description: CenterPrimaryKey_ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: UpdateCenterBody
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateSaleCenter'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Updated Center
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Update Center
+      tags:
+      - Center
+  /employee:
+    get:
+      consumes:
+      - application/json
+      description: Get List Employee
+      operationId: get_list_employee
+      parameters:
+      - description: limit
+        in: query
+        name: limit
+        type: number
+      - description: offset
+        in: query
+        name: offset
+        type: number
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: GetListEmployeeResponseBody
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.EmployeeGetListResponse'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Get List Employee
+      tags:
+      - Employee
+  /employee/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete Employee
+      operationId: delete_employee
+      parameters:
+      - description: DeleteEmployeePath
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Deleted Employee
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Delete Employee
+      tags:
+      - Employee
+    get:
+      consumes:
+      - application/json
+      description: Get By Id Employee
+      operationId: get_by_id_employee
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: EmployeeBody
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Employee'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Get By Id Employee
+      tags:
+      - Employee
+    put:
+      consumes:
+      - application/json
+      description: Update Employee
+      operationId: update_employee
+      parameters:
+      - description: EmployeePrimaryKey_ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: UpdateBranchBody
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateEmployee'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Updated Employee
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Update Employee
+      tags:
+      - Employee
+  /provider:
+    get:
+      consumes:
+      - application/json
+      description: Get List Provider
+      operationId: get_list_provider
+      parameters:
+      - description: limit
+        in: query
+        name: limit
+        type: number
+      - description: offset
+        in: query
+        name: offset
+        type: number
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: GetListProviderResponseBody
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.ProviderGetListResponse'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Get List Provider
+      tags:
+      - Provider
+    post:
+      consumes:
+      - application/json
+      description: Create Provider
+      operationId: create_provider
+      parameters:
+      - description: CreateProviderRequestBody
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateProvider'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ProviderBody
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Provider'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Create Provider
+      tags:
+      - Provider
+  /provider/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete Provider
+      operationId: delete_provider
+      parameters:
+      - description: DeleteProviderPath
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Deleted Provider
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Delete Provider
+      tags:
+      - Provider
+    get:
+      consumes:
+      - application/json
+      description: Get By Id Provider
+      operationId: get_by_id_provider
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ProviderBody
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Provider'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Get By Id Provider
+      tags:
+      - Provider
+    put:
+      consumes:
+      - application/json
+      description: Update Provider
+      operationId: update_provider
+      parameters:
+      - description: ProviderPrimaryKey_ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: UpdateBranchBody
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateProvider'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Updated Provider
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Update Provider
+      tags:
+      - Provider
+schemes:
+- http
+- https
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"
